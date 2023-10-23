@@ -34,7 +34,7 @@
         <h1 class="fw-semibold mx-2 text-start pt-3 pb-2">Regístrate ✍🏻</h1>
 
         <!-- Register -->
-        <form action="servidor/registro/registrar.php" method="post" class="needs-validation row" novalidate>
+        <form action="servidor/registro/registrar.php" method="post" class="row">
 
         <!-- Nombre -->
           <div class="mb-4 col-6 form-floating">

@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Regístrate</title>
+  <title>Iniciar sesión</title>
   <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/2484/2484004.png">
   <link rel="stylesheet" href="assets/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10.15.7/dist/sweetalert2.min.css">
@@ -32,7 +32,7 @@
         <h1 class="fw-bold text-start pt-5 pb-5">Iniciar Sesión</h1>
 
         <!-- Login -->
-        <form action="servidor/login/logear.php" method="post" class="needs-validation" novalidate>
+        <form action="servidor/login/logear.php" method="post">
 
           <div class="mb-4 form-floating">
             <input type="text" class="form-control" name="usuario" placeholder="Ingresa tu usuario" id="usuario" required>

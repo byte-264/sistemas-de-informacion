@@ -120,7 +120,7 @@ if ($result->num_rows > 0) {
           </div>
           <div class="name-job">
             <div class="profile_name fs-6">Administrador</div>
-            <div class="job text-capitalize"><?php echo $_SESSION['usuario'] ?></div>
+            <div class="job text-capitalize"><?php echo $usuario; ?></div>
           </div>
           <a href="../../servidor/login/logout.php"><i class='bx bx-log-out'></i></a>
         </div>
@@ -177,7 +177,35 @@ if ($result->num_rows > 0) {
     </div>
 </div>
 
+<?php
 
+// Envía el formulario de gastos
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    include '../conexion.php'; // Incluye tu archivo de conexión
+
+    // Obtén los datos del formulario
+    $nombreGasto = $_POST['nombre_gasto'];
+    $descripcion = $_POST['descripcion'];
+    $costo = $_POST['costo'];
+
+    // Genera la fecha actual
+    $fecha = date('Y-m-d');
+
+    // Inserta los datos en la base de datos
+    $sql = "INSERT INTO t_gastos (nombre_gasto, descripcion, fecha, monto) VALUES ('$nombreGasto', '$descripcion', '$fecha', $costo)";
+
+    if ($conn->query($sql) === TRUE) {
+        $conn->close(); // Cierra la conexión
+
+        // Redirige al usuario a la página de gastos
+        print "<script>window.setTimeout(function() { window.location = '/sistemas-de-informacion/pages/admin/pagos.php' }, 1000);</script>";
+        exit(); // Asegura que el script se detenga aquí para evitar cualquier salida adicional
+    } else {
+        echo "Error al registrar el gasto: " . $conn->error;
+    }
+}
+
+?>
 
 <div class="container mt-4">
     <div class="row row-cols-1 row-cols-md-4 g-4">
@@ -191,7 +219,7 @@ if ($result->num_rows > 0) {
             while($fila = $resultado->fetch_assoc()) {
         ?>
 
-          <div class="col cards" style="">
+          <div class="col cards">
 
             <div class="card shadow">
               <div class="card-body" data-bs-toggle="modal" data-bs-target="#modal_<?php echo $fila['Id_gasto']; ?>">
@@ -215,41 +243,6 @@ if ($result->num_rows > 0) {
         ?>
     </div>
 </div>
-
-
-
-
-</section>
-
-
-<?php
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    include '../conexion.php'; // Incluye tu archivo de conexión
-
-    // Obtén los datos del formulario
-    $nombreGasto = $_POST['nombre_gasto'];
-    $descripcion = $_POST['descripcion'];
-    $costo = $_POST['costo'];
-
-    // Genera la fecha actual
-    $fecha = date('Y-m-d');
-
-    // Inserta los datos en la base de datos
-    $sql = "INSERT INTO t_gastos (nombre_gasto, descripcion, fecha, monto) VALUES ('$nombreGasto', '$descripcion', '$fecha', $costo)";
-
-    if ($conn->query($sql) === TRUE) {
-        $conn->close(); // Cierra la conexión
-
-        // Redirige al usuario de regreso a la misma página
-        header("Location: " . $_SERVER['REQUEST_URI']);
-        exit();
-    } else {
-        echo "Error al registrar el gasto: " . $conn->error;
-    }
-}
-
-?>
 
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
